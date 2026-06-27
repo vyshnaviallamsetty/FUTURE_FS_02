@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusCRM Pro - Enterprise Pipeline Workspace</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="app-shell">
+        <aside class="app-sidebar">
+            <div class="brand-zone">
+                <div class="logo-shield">N</div>
+                <h2>Nexus<span>CRM</span><small>Enterprise Workspace</small></h2>
+            </div>
+            
+            <nav class="sidebar-menu">
+                <button class="menu-item active" data-view="dashboard-view">
+                    <span>📊</span> Executive Dashboard
+                </button>
+                <button class="menu-item" data-view="pipeline-view">
+                    <span>💼</span> Deal Pipeline Workspace
+                </button>
+                <button class="menu-item" data-view="analytics-view">
+    <span>📈</span> Analytics & Reports
+</button>
+            </nav>
+
+            <div class="sidebar-footer" style="margin-top: auto; padding-top: 2rem;">
+    <button id="system-signout-btn" class="menu-item" style="width: 100%; text-align: left; background: transparent; border: none; color: #ef4444; cursor: pointer; display: flex; align-items: center; gap: 10px; padding: 12px;">
+        <span>🚪</span> Sign Out Session
+    </button>
+</div>
+        </aside>
+
+        <main class="main-viewport">
+            
+            <section id="dashboard-view" class="workspace-view">
+                <div class="workspace-header">
+                    <h1>Executive Intelligence Dashboard</h1>
+                    <p>Real-time analytics, organizational KPIs, and target pipeline monetization metrics.</p>
+                </div>
+
+                <div class="kpi-dashboard-grid">
+                    <div class="kpi-metric-card">
+                        <h3>Total Active Profiles</h3>
+                        <p id="kpi-total-leads">0</p>
+                        <div class="kpi-subtext">Aggregated open target records in memory</div>
+                    </div>
+                    <div class="kpi-metric-card monetary">
+                        <h3>Gross Pipeline Worth</h3>
+                        <p id="kpi-pipeline-worth">$0</p>
+                        <div class="kpi-subtext">Total cumulative contract value matrix</div>
+                    </div>
+                </div>
+
+                <div class="analytics-visualization-row">
+                    <div class="chart-tile-box">
+                        <h3>Pipeline Vector Stage Densities</h3>
+                        <div class="chart-canvas-wrapper">
+                            <canvas id="pipelineStatusChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="pipeline-view" class="workspace-view hidden">
+                <div class="workspace-header split">
+                    <div>
+                        <h1>Deal Pipeline Workspace</h1>
+                        <p>Select any active client record below to inspect and manage parameters in the workspace profile workspace panel.</p>
+                    </div>
+                    <div class="workspace-utilities">
+                        <input type="text" id="pipeline-search" placeholder="Filter by system identifier, name, or email...">
+                        <button class="utility-action-btn" id="export-csv-btn">Export Spreadsheet (CSV)</button>
+                    </div>
+                </div>
+
+                <div class="pipeline-split-workspace-container" style="display: flex; gap: 20px; align-items: flex-start; height: calc(100vh - 180px);">
+                    
+                    <div class="table-scroll-container" style="flex: 1; height: 100%; overflow-y: auto;">
+                        <table class="nexus-data-grid">
+                            <thead>
+                                <tr>
+                                    <th>Lead Identifier</th>
+                                    <th>Primary Stakeholder</th>
+                                    <th>Company Entity</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pipeline-grid-tbody">
+                                </tbody>
+                        </table>
+                    </div>
+
+                    <div id="lead-details-panel" class="lead-details-panel" style="flex: 0 0 320px; height: 100%; overflow-y: auto; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem; display: none;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                            <h3 style="color: #1e293b; margin: 0; font-size: 1.1rem;">Lead Details</h3>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button type="button" id="edit-lead-btn" style="background: #3b82f6; color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 4px; cursor: pointer; font-size: 0.8rem; font-weight: 600; transition: all 0.2s;">✎ Edit</button>
+                                <button type="button" id="delete-lead-btn" style="background: #ef4444; color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 4px; cursor: pointer; font-size: 0.8rem; font-weight: 600; transition: all 0.2s;">🗑 Delete</button>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+                            <div>
+                                <label style="display: block; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; margin-bottom: 0.5rem;">Lead ID</label>
+                                <p id="detail-id" style="color: #1e293b; margin: 0; font-weight: 500;">-</p>
+                            </div>
+
+                            <div>
+                                <label style="display: block; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; margin-bottom: 0.5rem;">Contact Name</label>
+                                <p id="detail-name" style="color: #1e293b; margin: 0; font-weight: 500;">-</p>
+                            </div>
+
+                            <div>
+                                <label style="display: block; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; margin-bottom: 0.5rem;">Company</label>
+                                <p id="detail-company" style="color: #1e293b; margin: 0; font-weight: 500;">-</p>
+                            </div>
+
+                            <div>
+                                <label style="display: block; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; margin-bottom: 0.5rem;">Email</label>
+                                <p id="detail-email" style="color: #1e293b; margin: 0; font-weight: 500; word-break: break-all;">-</p>
+                            </div>
+
+                            <div>
+                                <label style="display: block; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; margin-bottom: 0.5rem;">Pipeline Value</label>
+                                <p id="detail-value" style="color: #10b981; margin: 0; font-weight: 600; font-size: 1.1rem;">-</p>
+                            </div>
+
+                            <div>
+                                <label style="display: block; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; margin-bottom: 0.5rem;">Source Channel</label>
+                                <p id="detail-source" style="color: #1e293b; margin: 0; font-weight: 500;">-</p>
+                            </div>
+
+                            <div>
+                                <label style="display: block; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; margin-bottom: 0.5rem;">Pipeline Status</label>
+                                <p id="detail-status" style="color: #1e293b; margin: 0; font-weight: 500; padding: 0.4rem 0.8rem; background-color: #f1f5f9; border-radius: 4px; display: inline-block;">-</p>
+                            </div>
+
+                            <div>
+                                <label style="display: block; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; margin-bottom: 0.5rem;">Date Added</label>
+                                <p id="detail-date" style="color: #1e293b; margin: 0; font-weight: 500;">-</p>
+                            </div>
+
+                            <div>
+                                <label style="display: block; color: #64748b; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; margin-bottom: 0.5rem;">Notes</label>
+                                <p id="detail-notes" style="color: #475569; margin: 0; font-weight: 400; line-height: 1.5; font-size: 0.9rem;">-</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="workspace-bottom-actions" style="display: flex; justify-content: flex-end; margin-top: 15px;">
+                    <button class="utility-action-btn primary action-ingest-trigger" id="open-ingest-modal-btn" title="Ingest Manual Lead">
+                        <span>📥</span> Ingest Manual Lead
+                    </button>
+                </div>
+            </section>
+            <section id="analytics-view" class="workspace-view hidden">
+    <div class="workspace-header">
+        <h1>Analytics & Reports</h1>
+        <p>Deep-dive performance metrics, source attribution, and pipeline velocity insights.</p>
+    </div>
+
+    <!-- KPI Row -->
+    <div class="kpi-dashboard-grid analytics-kpi-grid">
+        <div class="kpi-metric-card">
+            <h3>Conversion Rate</h3>
+            <p id="an-conversion-rate">0%</p>
+            <div class="kpi-subtext">Converted leads out of total</div>
+        </div>
+        <div class="kpi-metric-card monetary">
+            <h3>Avg. Deal Value</h3>
+            <p id="an-avg-value">$0</p>
+            <div class="kpi-subtext">Mean contract size across pipeline</div>
+        </div>
+        <div class="kpi-metric-card">
+            <h3>Top Source Channel</h3>
+            <p id="an-top-source" style="font-size: 1.1rem;">—</p>
+            <div class="kpi-subtext">Highest volume acquisition origin</div>
+        </div>
+        <div class="kpi-metric-card monetary">
+            <h3>Converted Revenue</h3>
+            <p id="an-converted-revenue">$0</p>
+            <div class="kpi-subtext">Total value of Converted leads</div>
+        </div>
+    </div>
+
+    <!-- Charts Row 1 -->
+    <div class="analytics-visualization-row" style="grid-template-columns: 1fr 1fr;">
+        <div class="chart-tile-box">
+            <h3>Revenue by Pipeline Stage</h3>
+            <div class="chart-canvas-wrapper">
+                <canvas id="revenueByStageChart"></canvas>
+            </div>
+        </div>
+        <div class="chart-tile-box">
+            <h3>Lead Volume by Source Channel</h3>
+            <div class="chart-canvas-wrapper">
+                <canvas id="leadsBySourceChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row 2 -->
+    <div class="analytics-visualization-row" style="grid-template-columns: 1fr 1fr; margin-top: 1.5rem;">
+        <div class="chart-tile-box">
+            <h3>Monthly Lead Acquisition Trend</h3>
+            <div class="chart-canvas-wrapper">
+                <canvas id="monthlyTrendChart"></canvas>
+            </div>
+        </div>
+        <div class="chart-tile-box">
+            <h3>Revenue by Source Channel</h3>
+            <div class="chart-canvas-wrapper">
+                <canvas id="revenueBySourceChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Source Breakdown Table -->
+    <div class="chart-tile-box" style="margin-top: 1.5rem;">
+        <h3>Source Channel Performance Breakdown</h3>
+        <table class="nexus-data-grid" style="margin-top: 1rem;">
+            <thead>
+                <tr>
+                    <th>Source Channel</th>
+                    <th>Total Leads</th>
+                    <th>Converted</th>
+                    <th>Conversion Rate</th>
+                    <th>Total Value</th>
+                    <th>Avg. Value</th>
+                </tr>
+            </thead>
+            <tbody id="source-breakdown-tbody"></tbody>
+        </table>
+    </div>
+</section>
+        </main>
+    </div>
+
+    <div id="ingest-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+        <div class="modal-header" style="display:flex; justify-content:space-between; margin-bottom: 1rem;">
+            <h3 style="margin:0;">Ingest Manual Lead Profile</h3>
+            <button id="close-ingest-modal-btn" title="Close Window">&times;</button>
+        </div>
+        
+        <form id="nexus-ingestion-form">
+            <div class="modal-fields-grid">
+                <div>
+                    <label>Contact Name</label>
+                    <input type="text" id="input-name" required placeholder="e.g. John Doe">
+                </div>
+                <div>
+                    <label>Company Entity</label>
+                    <input type="text" id="input-company" placeholder="e.g. Nexus Corp">
+                </div>
+                <div>
+                    <label>Email Channel</label>
+                    <input type="email" id="input-email" required placeholder="name@company.com">
+                </div>
+                <div>
+                    <label>Worth Value ($)</label>
+                    <input type="number" id="input-value" placeholder="e.g. 50000">
+                </div>
+                <div>
+                    <label>Acquisition Origin</label>
+                    <select id="input-source" required>
+        <option value="" disabled selected>Select an engine...</option>
+        <option value="LinkedIn Outbound">LinkedIn Outbound</option>
+        <option value="Organic Inbound Engine">Organic Inbound Engine</option>
+        <option value="Executive Referral Grid">Executive Referral Grid</option>
+        <option value="Direct Outreach">Direct Outreach</option>
+        <option value="Paid Campaign">Paid Campaign</option>
+    </select>
+                </div>
+                <div>
+                    <label>Pipeline Stage Status</label>
+                    <select id="input-status">
+                        <option value="New">New</option>
+                        <option value="Contacted">Contacted</option>
+                        <option value="Converted">Converted</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Target Close Date</label>
+                    <input type="date" id="input-close-date">
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column;">
+                <label>Notes Log & Initial Activity Description</label>
+                <textarea id="input-notes" style="min-height: 60px; resize: vertical;" placeholder="Log initial engagement data details..."></textarea>
+            </div>
+
+            <div class="modal-footer-actions" style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 0.5rem;">
+                <button type="submit" class="action-btn">Save Lead Entry</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="edit-lead-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+        <div class="modal-header" style="display:flex; justify-content:space-between; margin-bottom: 1rem;">
+            <h3 style="margin:0;">Edit Lead Profile</h3>
+            <button id="close-edit-modal-btn" title="Close Window">&times;</button>
+        </div>
+        
+        <form id="nexus-edit-form">
+            <div class="modal-fields-grid">
+                <div>
+                    <label>Contact Name</label>
+                    <input type="text" id="edit-input-name" required placeholder="e.g. John Doe">
+                </div>
+                <div>
+                    <label>Company Entity</label>
+                    <input type="text" id="edit-input-company" placeholder="e.g. Nexus Corp">
+                </div>
+                <div>
+                    <label>Email Channel</label>
+                    <input type="email" id="edit-input-email" required placeholder="name@company.com">
+                </div>
+                <div>
+                    <label>Worth Value ($)</label>
+                    <input type="number" id="edit-input-value" placeholder="e.g. 50000">
+                </div>
+                <div>
+                    <label>Acquisition Origin</label>
+                    <select id="edit-input-source" required>
+        <option value="LinkedIn Outbound">LinkedIn Outbound</option>
+        <option value="Organic Inbound Engine">Organic Inbound Engine</option>
+        <option value="Executive Referral Grid">Executive Referral Grid</option>
+        <option value="Direct Outreach">Direct Outreach</option>
+        <option value="Paid Campaign">Paid Campaign</option>
+    </select>
+                </div>
+                <div>
+                    <label>Pipeline Stage Status</label>
+                    <select id="edit-input-status">
+                        <option value="New">New</option>
+                        <option value="Contacted">Contacted</option>
+                        <option value="Converted">Converted</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Target Close Date</label>
+                    <input type="date" id="edit-input-close-date">
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column;">
+                <label>Notes Log & Activity Description</label>
+                <textarea id="edit-input-notes" style="min-height: 60px; resize: vertical;" placeholder="Update engagement data details..."></textarea>
+            </div>
+
+            <div class="modal-footer-actions" style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 0.5rem;">
+                <button type="submit" class="action-btn">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div id="pipeline-auth-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+        <span style="display: block; text-align: center; font-size: 2rem;">🔒</span>
+        <h3 style="color: #1e293b; margin: 10px 0 5px 0;">Restricted Workspace</h3>
+        <p style="color: #64748b; font-size: 0.85rem; margin-bottom: 1.5rem;">Confirm access keys to view operational contract matrix.</p>
+        
+        <form id="pipeline-gate-form">
+            <div style="margin-bottom: 1.25rem; text-align: left;">
+                <label style="display: block; color: #64748b; font-size: 0.7rem; text-transform: uppercase; font-weight: 600; margin-bottom: 0.5rem;">Pipeline Clearance Key</label>
+                <input type="password" id="pipeline-gate-pass" required placeholder="••••••••" style="width: 100%; background: #f1f5f9; border: 1px solid rgba(0,0,0,0.1); color: #1e293b; padding: 10px; border-radius: 4px; box-sizing: border-box;">
+            </div>
+            <div id="pipeline-auth-error" style="color: #ef4444; font-size: 0.8rem; margin-bottom: 1rem; display: none;">
+                🛑 Invalid verification key.
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button type="button" id="cancel-pipeline-auth" style="flex: 1; background: #cbd5e1; color: #1e293b; border: none; padding: 10px; border-radius: 4px; cursor: pointer;">Cancel</button>
+                <button type="submit" style="flex: 1; background: #3b82f6; color: #fff; border: none; padding: 10px; border-radius: 4px; font-weight: 600; cursor: pointer;">Verify</button>
+            </div>
+        </form><br>
+        <div style="background: rgba(245, 158, 11, 0.08); border: 1px dashed rgba(245, 158, 11, 0.3); padding: 10px; border-radius: 6px; text-align: left;">
+            <span style="display: block; font-size: 0.65rem; color: #d97706; text-transform: uppercase; font-weight: 700; margin-bottom: 4px; letter-spacing: 0.5px;">🔑 Pipeline Workspace Passkey:</span>
+            <div style="font-size: 0.8rem; color: #475569; font-family: monospace;">
+                <span>Pass:</span> <strong style="color: #1e293b;">admin123</strong>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect With Our Enterprise Team</title>
+    <style>
+        :root {
+            --bg-page: #f8fafc;
+            --card-bg: #ffffff;
+            --accent-blue: #3b82f6;
+            --accent-emerald: #10b981;
+            --text-primary: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --transition-smooth: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .contact-card {
+            background: var(--card-bg);
+            padding: 3rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+        }
+
+        h2 { 
+            margin-top: 0; 
+            margin-bottom: 0.5rem; 
+            font-size: 2rem; 
+            letter-spacing: -0.025em;
+        }
+
+        .subtitle { 
+            color: var(--text-muted); 
+            margin-bottom: 3rem; 
+            font-size: 1rem; 
+        }
+
+        /* --- NARRATIVE SENTENCE FLOW --- */
+        .narrative-sentence-wrapper {
+            font-size: 1.35rem;
+            line-height: 2.3;
+            color: var(--text-primary);
+            font-weight: 400;
+        }
+
+        .inline-input-wrapper {
+            display: inline-block;
+            position: relative;
+            margin: 0 0.35rem;
+        }
+
+        .inline-input-wrapper input {
+            background: #f1f5f9 !important;
+            border: none !important;
+            border-bottom: 2px dashed #cbd5e1 !important;
+            border-radius: 0 !important;
+            padding: 0 0.5rem !important;
+            font-size: 1.3rem !important;
+            font-family: inherit !important;
+            color: var(--accent-blue) !important;
+            font-weight: 600;
+            width: auto;
+            min-width: 180px;
+            transition: var(--transition-smooth);
+            box-sizing: border-box;
+        }
+
+        .inline-input-wrapper input:focus {
+            outline: none !important;
+            border-bottom-color: var(--accent-blue) !important;
+            background: rgba(59, 130, 246, 0.05) !important;
+        }
+
+        .inline-input-wrapper input::placeholder {
+            color: #94a3b8;
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        /* Currency Prefix Handling */
+        .currency-symbol-prefix::before {
+            content: "$";
+            position: absolute;
+            left: -0.5rem;
+            color: var(--accent-emerald);
+            font-weight: 600;
+        }
+
+        .currency-symbol-prefix input {
+            color: var(--accent-emerald) !important;
+            padding-left: 0.5rem !important;
+            min-width: 130px;
+        }
+
+        /* Textarea Block styling */
+        .narrative-textarea-block {
+            margin-top: 3rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.5rem;
+        }
+
+        .narrative-textarea-block label {
+            display: block;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .narrative-textarea-block textarea {
+            width: 100%;
+            background: #f1f5f9 !important;
+            border: 1px solid var(--border-color) !important;
+            border-radius: 6px;
+            padding: 1rem;
+            color: var(--text-primary);
+            font-size: 1rem;
+            line-height: 1.5;
+            resize: none;
+            box-sizing: border-box;
+            transition: var(--transition-smooth);
+        }
+
+        .narrative-textarea-block textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+        }
+
+        /* Submit Footer Button */
+        .form-action-footer {
+            margin-top: 2.5rem;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        button {
+            padding: 0.85rem 2.5rem;
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        button:hover { 
+            background: #2563eb; 
+            transform: translateY(-1px);
+        }
+
+        /* Success Message Splash Screen */
+        .success-msg {
+            display: none;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+        
+        .success-msg h3 {
+            color: var(--accent-emerald);
+            font-size: 1.75rem;
+            margin-top: 0;
+        }
+        
+        .success-msg p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contact-card">
+        <div id="form-container">
+            <h2>Contact form</h2>
+            <p class="subtitle">Tell us about your requirements naturally to secure a premium workspace queue slot.</p>
+            
+            <form id="public-contact-form">
+                <div class="narrative-sentence-wrapper">
+                    Hello team! My name is 
+                    <span class="inline-input-wrapper">
+                        <input type="text" id="web-name" required placeholder="Your Full Name">
+                    </span> 
+                    and I am reaching out on behalf of 
+                    <span class="inline-input-wrapper">
+                        <input type="text" id="web-company" required placeholder="Your Company Name">
+                    </span>.
+                    <br><br>
+                    
+                    You can contact me securely at my corporate email, 
+                    <span class="inline-input-wrapper">
+                        <input type="email" id="web-email" required placeholder="name@company.com">
+                    </span>. 
+                    We are currently structuring a target budget allocated around 
+                    <span class="inline-input-wrapper currency-symbol-prefix">
+                        <input type="number" id="web-value" required min="0" placeholder="00,000">
+                    </span> for this infrastructure implementation.
+                    <br><br>
+
+                    <div class="narrative-textarea-block">
+                        <label for="web-notes">Additional project scope or early parameters:</label>
+                        <textarea id="web-notes" rows="3" placeholder="Tell us about your goals, timelines, or specific technical integrations..."></textarea>
+                    </div>
+                </div>
+
+                <div class="form-action-footer">
+                    <button type="submit">Submit Dynamic Request</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Hidden Splash Area triggered post-submission -->
+        <div id="success-block" class="success-msg">
+            <h3>🎉 Structural Handshake Completed</h3>
+            <p>Your details have bypassed data queues and successfully populated the operational workspace pipeline.</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('public-contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // 1. Recover existing backend matrix or establish fallback array
+            let currentDb = [];
+            try {
+                currentDb = JSON.parse(localStorage.getItem('nexus_pro_database')) || [];
+            } catch(err) {
+                currentDb = [];
+            }
+
+            // 2. Generate systematic record entry mirroring schema
+            const newLead = {
+                id: `WEB-${Math.floor(1000 + Math.random() * 9000)}`,
+                name: document.getElementById('web-name').value.trim(),
+                company: document.getElementById('web-company').value.trim(),
+                email: document.getElementById('web-email').value.trim(),
+                value: parseFloat(document.getElementById('web-value').value) || 0,
+                source: "Website Contact Form",
+                status: "New",
+                dateAdded: new Date().toISOString().split('T')[0],
+                notes: document.getElementById('web-notes').value.trim() || "Automated form entry logged."
+            };
+
+            // 3. Inject new data element, serialize, commit to engine
+            currentDb.push(newLead);
+            localStorage.setItem('nexus_pro_database', JSON.stringify(currentDb));
+
+            // 4. Transform interface display state
+            document.getElementById('form-container').style.display = 'none';
+            document.getElementById('success-block').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
